@@ -1,29 +1,19 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { getPosting as getPostingRequest } from "../../services/api";
+import { getPosting as getPostingRequest } from '../../services';
 
-export const usePosting = () =>{
-    const [posting , setPosting] = useState([]);
+export const usePosting = () => {
+    const [publication, setPublication] = useState([]);
 
-    const getPosting = async () =>{
-        try {
-            const postingData = await getPostingRequest()
-            if(postingData.error){
-                toast.error(
-                    postingData.e.response.data || "Error al obtener las tareas"
-                );
-                return;
-            }
-            setPosting(postingData.data);
-            return postingData.data;
-        } catch (error) {
-            console.error("Error al obtener el post:", error)
-            toast.error("Error al obtener los post");
+    const getPosting = async () => {
+        const publicationData = await getPostingRequest();
+        if (publicationData.error) {
+            return toast.error(
+                publicationData.response?.data || "Error al obtener las publicaciones :("
+            );
         }
-    }
+        setPublication(publicationData.data);
 
-    return{
-        posting,
-        getPosting
-    }
+        return publicationData.data;
+    };
 }

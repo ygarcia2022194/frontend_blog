@@ -1,7 +1,6 @@
-import {Dashboard} from "./pages/dashboard/Dashboard"
+import { Dashboard } from "./pages/dashboard"
 
-const routes = [
-    {path: '/*', element: <Dashboard/>}
+const routes =[
+    {path:  '/*', element: <Dashboard/>}
 ]
-
-export default routes;
+export default routes

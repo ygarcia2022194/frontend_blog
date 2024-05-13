@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-    baseURL: "http://127.0.0.1:8080/blogWorking/v1",
+    baseURL: "http://127.0.0.1:8080/blog/v1",
     timeout: 5000
 })
 
@@ -24,5 +24,19 @@ export const getPostingDetails = async ({id})=>{
             error: true,
             e
         }
+    }
+}
+
+export const addComment = async (id, usuario, comment) => {
+    try {
+        console.log('id', id)
+        console.log('commentUser', usuario)
+        console.log('commentMain', comment)
+        return await apiClient.put(`/posting/addComment/${id}`, { usuario, comment })
+    } catch (e) {
+        return ({
+            error: true,
+            e
+        })
     }
 }

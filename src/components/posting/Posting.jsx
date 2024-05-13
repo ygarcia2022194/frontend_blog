@@ -1,30 +1,23 @@
-import { useState } from "react";
-import { Input } from "../../settings/Input";
-import { usePosting } from "../../shared/hooks/usePosting";
-import '../components/css/posting.css'
-import { useNavigate } from "react-router-dom";
+import './css/posting.css';
 
-export const Posting = ({posting}) =>{
-    const navigate = useNavigate()
-
-    const handleNavigateToPosting = (id) =>{
-      navigate(`/posting/${id}`)
-    }
-
-    return(
-      <div className="channels-container">
-        {posting.map((c)=>(
-          <PostingCard
-              key={c.id}
-              id={c.id}
-              titulo={c.titulo}
-              categoria={c.categoria}
-              texto={c.texto}
-              image={c.image}
-              navigateToPostingHandler={handleNavigateToPosting}
-          />
-        ))}
-      </div>
-    )
-    
-}
+export const Posting = ({ publication }) => {
+    return (
+        <div className="publicacion-container">
+            {publication.map((publicacion, index) => (
+                <div key={index} className="publicacion-card">
+                    <h2>{publicacion.titulo}</h2>
+                    <hr />
+                    <p>{publicacion.autor}</p>
+                    <p>{publicacion.categoria}</p>
+                    <p>{publicacion.texto}</p>
+                    <img src={publicacion.image} alt="" />
+                    <form >
+                        <input type="text" placeholder="Nombre de la persona"></input>
+                        <input type="text" placeholder="Comentario"></input>
+                        <input type="submit" value="Enviar"></input>
+                    </form>
+                </div>
+            ))}
+        </div>
+    );
+};

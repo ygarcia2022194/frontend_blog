@@ -1,0 +1,45 @@
+.publicacion-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.publicacion-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: calc(33.33% - 20px);
+    box-sizing: border-box;
+    color: #000;
+}
+
+.publicacion-card h2 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.publicacion-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.publicacion-card label,
+.publicacion-card div {
+    margin-top: 5px;
+    font-size: 16px;
+    color: #000; 
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
