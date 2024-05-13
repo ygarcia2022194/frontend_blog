@@ -16,7 +16,7 @@ export const getPosting = async ()=>{
     }
 }
 
-export const getPostingDetails = async ({id})=>{
+export const getPostingDetails = async (id)=>{
     try {
         return await apiClient.get(`/posting/${id}`)
     } catch (e) {
@@ -30,8 +30,8 @@ export const getPostingDetails = async ({id})=>{
 export const addComment = async (id, usuario, comment) => {
     try {
         console.log('id', id)
-        console.log('commentUser', usuario)
-        console.log('commentMain', comment)
+        console.log('usuario', usuario)
+        console.log('comment', comment)
         return await apiClient.put(`/posting/addComment/${id}`, { usuario, comment })
     } catch (e) {
         return ({

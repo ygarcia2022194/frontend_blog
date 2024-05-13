@@ -1,24 +1,17 @@
 import './css/posting.css';
 
-export const Posting = ({ publication }) => {
+export const Posting = ({ publication, onReadMoreClick }) => {
     return (
         <div className="publicacion-container">
             {publication.map((publicacion, index) => (
+                console.log(publicacion.imagePrincipal),
                 <div key={index} className="publicacion-card">
+                    <center><img src={publicacion.imagePrincipal} alt="Imagen" className='post-image'/></center>
                     <h2>{publicacion.titulo}</h2>
                     <hr />
                     <label>Autor: </label>
                     <p>{publicacion.autor}</p>
-                    <label>Categoria: </label>
-                    <p>{publicacion.categoria}</p>
-                    <label>Descripcion: </label>
-                    <p>{publicacion.texto}</p>
-                    <img src={publicacion.image} alt="" className='post-image' />
-                    <form className="comment-form">
-                        <input type="text" placeholder="Nombre de la persona" className="comment-input"></input>
-                        <input type="text" placeholder="Comentario" className="comment-input"></input>
-                        <input type="submit" value="Enviar" className="comment-submit"></input>
-                    </form>
+                    <button onClick={() => onReadMoreClick(publication._id)}>Leer más</button>
                 </div>
             ))}
         </div>

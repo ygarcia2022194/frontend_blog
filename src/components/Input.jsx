@@ -8,40 +8,43 @@ export const Input = ({
     validationMessage,
     onBlurHandler,
     textarea,
+    readOnly
 }) => {
     const handleValueChange = (event) => {
         onChangeHandler(event.target.value, field)
-    };
+    }
 
     const handleInputBlur = (event) => {
         onBlurHandler(event.target.value, field)
-    };
+    }
 
     return (
         <>
-            <div className="auth-form-label">
+            <div className="">
                 <span>{label}</span>
             </div>
             {textarea ? (
                 <textarea
+                    readOnly={readOnly}
+                    type={type}
                     value={value}
                     onChange={handleValueChange}
                     onBlur={handleInputBlur}
                     rows={5}
-                    style={{ maxWidth: '400px' }}
+                    style={{maxWidth: '600px'}}
                 />
             ) : (
                 <input
+                    readOnly={readOnly}
                     type={type}
                     value={value}
                     onChange={handleValueChange}
                     onBlur={handleInputBlur}
                 />
             )}
-            <span className="auth-form-validations-message">
+            <span className="">
                 {showErrorMessage && validationMessage}
             </span>
         </>
-    );
-};
-
+    )
+}
