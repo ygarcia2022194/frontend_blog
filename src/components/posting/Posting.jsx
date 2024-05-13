@@ -7,14 +7,17 @@ export const Posting = ({ publication }) => {
                 <div key={index} className="publicacion-card">
                     <h2>{publicacion.titulo}</h2>
                     <hr />
+                    <label>Autor: </label>
                     <p>{publicacion.autor}</p>
+                    <label>Categoria: </label>
                     <p>{publicacion.categoria}</p>
+                    <label>Descripcion: </label>
                     <p>{publicacion.texto}</p>
-                    <img src={publicacion.image} alt="" />
-                    <form >
-                        <input type="text" placeholder="Nombre de la persona"></input>
-                        <input type="text" placeholder="Comentario"></input>
-                        <input type="submit" value="Enviar"></input>
+                    <img src={publicacion.image} alt="" className='post-image' />
+                    <form className="comment-form">
+                        <input type="text" placeholder="Nombre de la persona" className="comment-input"></input>
+                        <input type="text" placeholder="Comentario" className="comment-input"></input>
+                        <input type="submit" value="Enviar" className="comment-submit"></input>
                     </form>
                 </div>
             ))}

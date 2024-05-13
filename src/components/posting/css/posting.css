@@ -12,34 +12,53 @@
     padding: 20px;
     width: calc(33.33% - 20px);
     box-sizing: border-box;
-    color: #000;
 }
 
 .publicacion-card h2 {
     margin-top: 0;
-    font-size: 18px;
+    font-size: 20px;
     color: #333;
+}
+
+.publicacion-card label {
+    font-weight: bold;
+    color: #333;
+}
+
+.publicacion-card p {
+    margin-top: 5px;
+    font-size: 16px;
+    color: #666;
 }
 
 .publicacion-card img {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
-.publicacion-card label,
-.publicacion-card div {
-    margin-top: 5px;
-    font-size: 16px;
-    color: #000; 
+.comment-form {
+    margin-top: 20px;
 }
 
-a {
-    color: #007bff;
-    text-decoration: none;
+.comment-input {
+    width: calc(50% - 5px);
+    margin-right: 5px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
-a:hover {
-    text-decoration: underline;
+.comment-submit {
+    padding: 8px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.comment-submit:hover {
+    background-color: #0056b3;
 }
