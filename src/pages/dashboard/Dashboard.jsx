@@ -1,12 +1,22 @@
 import {Nav} from '../../components/nav/Nav.jsx'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { getPosting } from '../../services/api.jsx';
 import { Posting } from '../../components/posting/Posting.jsx';
-//import { Footer} from '../../components/footer/Footer.jsx'
+import { PostingDetails } from '../../components/postingDetails/PostingDetails.jsx';
 
 export const Dashboard = () => {
   const [publication, setPublication] = useState([]);
-  
+  const [selectedPostingId, setSelectedPostingId] = useState(null)
+
+  const handleReadMoreClick =(id) =>{
+    console.log('clickear leer mas: ', id);
+    setSelectedPostingId(id);
+  }
+
+  useEffect(()=>{
+    console.log('Id de la publicacion seleccionada: ', selectedPostingId)
+  }, [selectedPostingId])
+
   useEffect(() => {
     const fetchPublication = async () => {
       try {
@@ -27,7 +37,11 @@ export const Dashboard = () => {
     <>
     <div>
       <Nav/>
-      <Posting publication={publication} />
+      {selectedPostingId === null ? (
+        <Posting publication={publication} onReadMoreClick={handleReadMoreClick}/>
+      ):(
+        <PostingDetails publicationId={selectedPostingId}/>
+      )}
     </div>
     </>
   )

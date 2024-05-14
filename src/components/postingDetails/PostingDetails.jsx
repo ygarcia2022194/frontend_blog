@@ -4,7 +4,7 @@ import './postingDetails.css'
 import { Input } from "../Input";
 import { addComment } from "../../services/api";
 
-export const PostingDetails = ({postingId}) =>{
+export const PostingDetails = ({publicationId}) =>{
     const [postingDetails, setPostingDetails] = useState(null);
     const [formState, setFormState] = useState({
         usuario:{
@@ -54,7 +54,7 @@ export const PostingDetails = ({postingId}) =>{
     const handleFormSubmit = async (event)=>{
         event.preventDefault();
         const response = await addComment(
-            postingId,
+            publicationId,
             formState.usuario.value,
             formState.comment.value
         )
@@ -67,8 +67,9 @@ export const PostingDetails = ({postingId}) =>{
 
     const fetchPublicationDetails = async()=>{
         try {
-            if(postingId){
-                const data = await getPostingDetails(postingId);
+            if(publicationId){
+                const data = await getPostingDetails(publicationId);
+                console.log(data)
                 setPostingDetails(data)
             }else{
                 console.error('No se encontro la publicacion');
@@ -80,15 +81,15 @@ export const PostingDetails = ({postingId}) =>{
 
     useEffect(()=>{
         fetchPublicationDetails();
-        console.log('Obteniendo detalles de publicación para id:', postingId)
+        console.log('Obteniendo detalles de publicación para id:', publicationId)
 
-    }, [postingId]);
+    }, [publicationId]);
 
     useEffect(()=>{
         const fetchPublicationDetails = async()=>{
             try {
-                if(postingId){
-                    const data = await getPostingDetails(postingId);
+                if(publicationId){
+                    const data = await getPostingDetails(publicationId);
                     setPostingDetails(data);
                 }else{
                     console.error('No se encontro el id de la publicacion');
@@ -98,76 +99,49 @@ export const PostingDetails = ({postingId}) =>{
             }
         }
         fetchPublicationDetails();
-        console.log('Obteniendo detalles de publicación para id:', postingId)
-    }, [postingId]);
+        console.log('Obteniendo detalles de publicación para id:', publicationId)
+    }, [publicationId]);
     console.log('Detalles de la publicacion:', postingDetails);
 
     return(
         <div className="publication-details-container">
-            {publicationDetails && (
+            {postingDetails && (
                 <div className="publication-details">
                     <div className="publication-details-item">
+                        <label>Autor:</label>
+                        <div>{postingDetails.data.autor}</div>
+                    </div>
+                    <div className="publication-details-item">
                         <label>Titulo:</label>
-                        <div>{publicationDetails.data.titulo}</div>
+                        <div>{postingDetails.data.titulo}</div>
                     </div>
                     <div className="publication-details-item">
                         <label>Descripción:</label>
-                        <div>{publicationDetails.data.descripcion}</div>
+                        <div>{postingDetails.data.texto}</div>
                     </div>
                     <div className="publication-details-item">
-                        <label>Autor:</label>
-                        <div>{publicationDetails.data.autor}</div>
+                        <label>Categoria:</label>
+                        <div>{postingDetails.data.categoria}</div>
                     </div>
                     <div className="publication-details-item">
                         <label>Link:</label><br />
-                        <a href={publicationDetails.data.link} target="_blank" rel="noopener noreferrer">
-                            {publicationDetails.data.link}
+                        <a href={postingDetails.data.link} target="_blank" rel="noopener noreferrer">
+                            {postingDetails.data.link}
                         </a>
                     </div>
                     <div className="publication-details-item">
                         <label>Tecnologías utilizadas:</label>
-                        <div>{publicationDetails.data.tecnologiasUtilizadas}</div>
+                        <div>{postingDetails.data.tools}</div>
                     </div>
-                    <div className="publication-details-item">
-                        <label>De que trata:</label>
-                        <div>{publicationDetails.data.deQueTrata}</div>
-                    </div>
-                    <div className="publication-details-item">
-                        <label>Como funciona:</label>
-                        <div>{publicationDetails.data.comoFunciona}</div>
-                    </div>
-                    <div className="publication-details-item">
-                        <label>Imágenes:</label>
-                        <div className="image-gallery">
-                            {publicationDetails.data.imagenes.map((image, index) => (
-                                <img key={index} src={image} alt={`Image ${index}`} />
-                            ))}
-                        </div>
-                    </div>
-                    <div className="publication-details-item">
-                        <label>Caracteristicas principales:</label>
-                        <div>{publicationDetails.data.caracteristicasPrincipales}</div>
-                    </div>
-                    <div className="publication-details-item">
-                        <label>Caracteristicas secundarias:</label>
-                        <div>{publicationDetails.data.caracteristicasSecundarias}</div>
-                    </div>
-                    <div className="publication-details-item">
-                        <label>Etiquetas:</label>
-                        <div>{publicationDetails.data.etiquetas}</div>
-                    </div>
-                    <div className="publication-details-item">
-                        <label>Fecha de creacion de la publicación:</label>
-                        <div>{publicationDetails.data.fechaCreacion}</div>
-                    </div>
+                    <img src={postingDetails.data.imagePrincipal} alt="Imagen" className='post-image'/>
                     <hr />
                     <h2>Comentarios</h2>
                     <div className="publication-details-item">
                         <form className="comment-form">
                             <Input
-                                field="nombre"
-                                label="Nombre persona"
-                                value={formState.nombre.value}
+                                field="usuario"
+                                label="Usuario"
+                                value={formState.usuario.value}
                                 onChangeHandler={handleInputValueChange}
                                 onBlurHandler={handleInputValidationOnBlur}
                                 type="text"
@@ -176,7 +150,7 @@ export const PostingDetails = ({postingId}) =>{
                             <Input
                                 field="comentario"
                                 label="Comentario"
-                                value={formState.comentario.value}
+                                value={formState.comment.value}
                                 onChangeHandler={handleInputValueChange}
                                 onBlurHandler={handleInputValidationOnBlur}
                                 type="text"
@@ -186,14 +160,14 @@ export const PostingDetails = ({postingId}) =>{
                             <br />
                         </form>
                         <div>
-                            {publicationDetails && publicationDetails.data && publicationDetails.data.comentarios && publicationDetails.data.comentarios.length > 0 ? (
-                                publicationDetails.data.comentarios.map((comentario, index) => (
+                            {postingDetails && postingDetails.data && postingDetails.data.comentarios && postingDetails.data.comentarios.length > 0 ? (
+                                postingDetails.data.comentarios.map((comentario, index) => (
                                     <div key={index} className="comment-card">
                                         <div>
-                                            <label>Nombre persona: {comentario.nombre}</label>
+                                            <label>Nombre persona: {comentario.usuario}</label>
                                         </div>
                                         <div>
-                                            <label>Comentario: {comentario.comentario}</label>
+                                            <label>Comentario: {comentario.comment}</label>
                                         </div>
                                     </div>
                                 ))
@@ -207,3 +181,12 @@ export const PostingDetails = ({postingId}) =>{
         </div>
     )
 }
+
+/*<div className="publication-details-item">
+                        <label>Imágenes:</label>
+                        <div className="image-gallery">
+                            {postingDetails.data.imagenes.map((image, index) => (
+                                <img key={index} src={image} alt={`Image ${index}`} />
+                            ))}
+                        </div>
+                    </div>*/

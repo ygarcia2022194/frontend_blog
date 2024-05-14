@@ -11,7 +11,7 @@ export const Posting = ({ publication, onReadMoreClick }) => {
                     <hr />
                     <label>Autor: </label>
                     <p>{publicacion.autor}</p>
-                    <button onClick={() => onReadMoreClick(publication._id)}>Leer más</button>
+                    <button onClick={() => onReadMoreClick(publicacion._id)}>Leer más</button>
                 </div>
             ))}
         </div>
